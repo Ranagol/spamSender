@@ -1,0 +1,9 @@
+/*https://stackoverflow.com/questions/13433683/using-css-in-laravel-views/49111138 */
+.spamSender {
+  font-size: 4em;
+  margin-top: 100px;
+}
+
+.myTextArea {
+  width: 400px;
+}

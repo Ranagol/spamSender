@@ -8,7 +8,8 @@
   <!--TODO why is this css file not working? Did I place it well? -->
   <!--TODO why is the ctrl + / not working here?  -->
   {{--  --}}
-  <link rel="stylesheet" href="style.css">
+  {{-- <link rel="stylesheet" href="style.css"> --}}
+  <link rel="stylesheet" href="<?php echo asset('style.css')?>" type="text/css"> 
   <title> @yield('title') </title>
 </head>
 <body>
