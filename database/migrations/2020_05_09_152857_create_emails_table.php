@@ -17,7 +17,7 @@ class CreateEmailsTable extends Migration
             $table->id();
             $table->string('email')->unique();
             $table->boolean('active');
-            $table->string('customer')->nullable;
+            $table->string('customer')->nullable($value = true);
             $table->timestamps();
         });
     }
