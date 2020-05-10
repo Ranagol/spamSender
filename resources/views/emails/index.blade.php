@@ -12,6 +12,7 @@
   </tr>
 
   @if(count($emails))
+    <span>Numer of active emails: {{ count($emails) }}</span>
     @foreach($emails as $email)
       <tr>
         <form action="/emails/{{ $email->id }}">

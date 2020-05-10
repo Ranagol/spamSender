@@ -10,7 +10,7 @@ class Email extends Model
 
 
     /**
-     * 
+     * This function can extract clean email adresses from a random gibberish text.
      */
     public static function extract_emails_from(string $string): array
     {

@@ -21,11 +21,7 @@
 
     </form>
 
-    @if($message ?? '')<!--1-why cant I do this: if there is a $message, then show the alert window with the $message -->
-      <div class="alert alert-warning" role="alert">
-        {{ $message ?? '' }}
-      </div>
-    @endif
+    
 
 
   </div>
@@ -44,6 +40,12 @@
     </form>
   </div>
 </div>
+
+@if($message ?? '')
+  <div class="alert alert-success" role="alert">
+    {{ $message ?? '' }}
+  </div>
+@endif
 
 @include('layouts.errors')
 

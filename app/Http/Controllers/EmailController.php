@@ -14,7 +14,8 @@ class EmailController extends Controller
      */
     public function index()
     {
-        $emails = Email::all();
+        //$emails = Email::all();
+        $emails = Email::orderBy('created_at', 'DESC')->get();
         return view('emails.index', compact('emails'));
     }
 
@@ -43,7 +44,6 @@ class EmailController extends Controller
         
         $email = new Email();
         $email->email = $request->email;
-        $email->active = true;//TODO SET THIS TO BE ACTIVE BY DEFAULT AND DELETE THIS
         $email->customer = $request->customer;
         $email->save();
         $message = 'The ' . $request->email . ' has been saved to database.';
@@ -51,10 +51,15 @@ class EmailController extends Controller
     }
 
     public function storeMultiple(Request $request){
-        // TODO ok, here i need help. I am sending some gibberish string to this method, and some shitty validation method is not alowing me to proceed. How turn this shit off? I don't need any validation here.
         $stringWithEmails = $request->stringWithEmails;
         $emailArray = Email::extract_emails_from($stringWithEmails);
-        dd($emailArray);
+        foreach ($emailArray as $singleEmail) {
+            $email = new Email();
+            $email->email = $singleEmail;
+            $email->save();
+        }
+        $message = count($emailArray) . ' emails have been saved to the database.';
+        return view('emails.create', compact('message'));
     }
 
     /**
