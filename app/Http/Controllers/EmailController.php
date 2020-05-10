@@ -114,7 +114,7 @@ class EmailController extends Controller
         $email->active = false;
         $email->save();
         $emails = Email::orderBy('created_at', 'DESC')->get();
-        return view('emails.index', compact('emails'));
+        return view('emails.index', compact('emails'));//TODO this is the way how I refresh the page with the updated data. Is this OK?
     }
 
     /**

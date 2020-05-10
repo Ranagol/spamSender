@@ -17,7 +17,7 @@ class CreateEmailsTable extends Migration
             $table->id();
             $table->string('email')->unique();
             $table->boolean('active')->default(true);
-            $table->string('customer')->nullable($value = true);//TODO how to give the customer column a default text value?
+            $table->string('customer')->nullable($value = true);//TODO how to give the customer column a default text value? I tried this below, and for some misterious reason it is not working.
             //$table->string('customer')->default('no name');//I tried to make default value in Laravel, but it is not working for some reason
             $table->timestamps();
         });
