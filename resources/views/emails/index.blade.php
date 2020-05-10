@@ -8,15 +8,17 @@
     <th>Active</th>
     <th>Customer</th>
   </tr>
-  <tr>
-    @if(count($emails))
-      @foreach($emails as $email)
+
+  @if(count($emails))
+    @foreach($emails as $email)
+      <tr>
         <td>{{ $email->email }}</td>
         <td>{{ $email->active }}</td>
         <td>{{ $email->customer}}</td>
-      @endforeach
-    @endif
-  </tr>
+      </tr>
+    @endforeach
+  @endif
+
 </table>
 
 @endsection
