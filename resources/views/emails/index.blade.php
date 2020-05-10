@@ -2,6 +2,8 @@
 @section('title')
 @section('content')
 
+@include('layouts.errors')
+
 <table class="table">
   <tr>
     <th>Email address</th>
@@ -15,15 +17,17 @@
     <span>Numer of active emails: {{ count($emails) }}</span>
     @foreach($emails as $email)
       <tr>
-        <form action="/emails/{{ $email->id }}">
+        {{-- EMAIL AND CUSTOMER  --}}
+        <form action="/emails/{{ $email->id }}" method="POST">
           @csrf
-          @method('PATCH')
+          @method('PUT')
           <td><input class="form-control" type="text" name="email" value="{{ $email->email }}"></td>
           <td><input class="form-control" type="text" name="customer" value="{{ $email->customer}}"></td>
 
           <td><button class="btn btn-warning">Edit</button></td>
         </form>
 
+        {{-- ACTIVE STATUS --}}
         <form action="/emails/{{ $email->id }}" method="POST">
           @csrf
           @method('PATCH')

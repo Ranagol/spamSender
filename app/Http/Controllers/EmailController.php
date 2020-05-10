@@ -91,9 +91,30 @@ class EmailController extends Controller
      * @param  \App\Email  $email
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Email $email)
+    public function update(Request $request, $id)
     {
-        dd('update working');
+        //TODO this validation randomly makes shit. customer name sometimes can't be number. Customer name sometimes can't be changed, edited. 
+        /*
+        $request->validate([
+            'email' => 'required|string|max:40|unique:emails',
+            'customer' => 'max:40',
+        ]);
+        */
+        
+        $email = Email::find($id);
+        $email->email = $request->email;
+        $email->customer = $request->customer;
+        $email->save();
+        $emails = Email::orderBy('created_at', 'DESC')->get();
+        return view('emails.index', compact('emails'));
+    }
+
+    public function updateActive(Request $request, $id){
+        $email = Email::find($id);
+        $email->active = false;
+        $email->save();
+        $emails = Email::orderBy('created_at', 'DESC')->get();
+        return view('emails.index', compact('emails'));
     }
 
     /**
