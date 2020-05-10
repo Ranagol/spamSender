@@ -38,12 +38,12 @@ class EmailController extends Controller
     {
         $request->validate([
             'email' => 'required|string|max:40|unique:emails',
-            'customer' => 'max:40',//TODO how to validate this? This could be sometimes null. But when it is not null, the max character number should not be more than 40
+            'customer' => 'max:40',
         ]);
         
         $email = new Email();
         $email->email = $request->email;
-        $email->active = true;//TODO this could be a possible error here, be careful
+        $email->active = true;//TODO SET THIS TO BE ACTIVE BY DEFAULT AND DELETE THIS
         $email->customer = $request->customer;
         $email->save();
         $message = 'The ' . $request->email . ' has been saved to database.';
@@ -51,15 +51,10 @@ class EmailController extends Controller
     }
 
     public function storeMultiple(Request $request){
-        // TODO ok, here i need help. I am sending some gibberish string to this method, and some shitty validation method is not alowing me to proceed. How turn this shit off?
+        // TODO ok, here i need help. I am sending some gibberish string to this method, and some shitty validation method is not alowing me to proceed. How turn this shit off? I don't need any validation here.
         $stringWithEmails = $request->stringWithEmails;
-        $emailArray = $this->extract_emails_from($stringWithEmails);
+        $emailArray = Email::extract_emails_from($stringWithEmails);
         dd($emailArray);
-    }
-
-    public function extract_emails_from($string){
-        preg_match_all("/[\._a-zA-Z0-9-]+@[\._a-zA-Z0-9-]+/i", $string, $matches);
-        return $matches[0];
     }
 
     /**
@@ -93,7 +88,7 @@ class EmailController extends Controller
      */
     public function update(Request $request, Email $email)
     {
-        //
+        dd('update working');
     }
 
     /**

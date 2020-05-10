@@ -32,7 +32,7 @@
 
   <div>
     <h5>Add multiple emails</h5>
-    <form action="/emails" method="POST">
+    <form action="/multiple-emails" method="POST">
       @csrf
       <div class="form-group">
         <label for="textarea">Paste here the multiple emails:</label>

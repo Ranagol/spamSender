@@ -5,10 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-  <!--TODO why is this css file not working? Did I place it well? -->
-  <!--TODO why is the ctrl + / not working here?  -->
-  {{--TODO wtf is this wrapping shit??? Why is not reactin to my TODO on the beginning?  --}}
-  {{-- <link rel="stylesheet" href="style.css"> --}}
+  
   <link rel="stylesheet" href="<?php echo asset('style.css')?>" type="text/css"> 
   <title> @yield('title') </title>
 </head>
