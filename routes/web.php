@@ -27,5 +27,6 @@ Route::put('/emails/{id}', 'EmailController@update');
 Route::patch('/emails/{id}', 'EmailController@updateActive');
 Route::get('/emails', 'EmailController@index');
 Route::get('/add-email', 'EmailController@create');
+Route::get('/send-email', 'EmailSendingController@sendMail');
 Route::post('/emails', 'EmailController@store');
 Route::post('/multiple-emails', 'EmailController@storeMultiple');
