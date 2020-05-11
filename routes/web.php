@@ -17,11 +17,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-/*
-Route::patch('/emails/{id}', function () {
-    return 'Route is working';
+
+Route::get('/emailsending', function () {
+    return view('/emailLaunching.send-email');
 });
-*/
+
 
 Route::put('/emails/{id}', 'EmailController@update');
 Route::patch('/emails/{id}', 'EmailController@updateActive');
