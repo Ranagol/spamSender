@@ -29,3 +29,4 @@ Route::get('/emails', 'EmailController@index');
 Route::get('/add-email', 'EmailController@create');
 Route::post('/emails', 'EmailController@store');
 Route::post('/multiple-emails', 'EmailController@storeMultiple');
+Route::get('/send-email', 'EmailSendingController@sendMail');
