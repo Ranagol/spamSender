@@ -1,3 +1,3 @@
 <div>
-    Hi, This is 
+    Hi, This is a test email.
 </div>

@@ -2,9 +2,9 @@
 @section('title')
 @section('content')
     <h4>Trigger email sending</h4>
-    <p>Send gmail:</p>
+    <p>Send mail to mailtrap:</p>
     <form action="/send-email" method="GET">
-        <button type="submit" class="btn btn-success">Send gmail</button>
+        <button type="submit" class="btn btn-success">Send mail</button>
     </form>
 
 @if($message ?? '')
