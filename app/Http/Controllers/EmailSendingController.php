@@ -18,10 +18,11 @@ class EmailSendingController extends Controller
     }
 
     public function sendMultipleMails(){
-        //get all active email addresses from db to an array
         $customers = Email::where('active', true)->get();
         foreach ($customers as $customer) {
             Mail::to($customer->email)->send(new MailForCustomers());
+            sleep(1);//this sleep is a bad practice. The issue I am awoiding with this sleep is only happening with free Mailtrap accounts, so I actually don't need a better solution, because I am moving to Mailgun soon.
+            //https://stackoverflow.com/questions/35304197/laravel-email-with-queue-550-error-too-many-emails-per-second
         }
         $message = 'All emails were succesfully sent.';
         return view('/emailLaunching.send-email', compact('message'));
