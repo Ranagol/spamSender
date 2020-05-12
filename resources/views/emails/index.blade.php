@@ -14,7 +14,7 @@
   </tr>
 
   @if(count($emails))
-    <span>Numer of active emails: {{ count($emails) }}</span>
+    <span>Numer of emails: {{ count($emails) }}</span>
     @foreach($emails as $email)
       <tr>
         {{-- EMAIL AND CUSTOMER  --}}
