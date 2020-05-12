@@ -5,5 +5,6 @@
     <a class="nav-item nav-link" href="/add-email">Add email</a>
     <a class="nav-item nav-link" href="#">Create MAIL</a>
     <a class="nav-item nav-link" href="emailsending">Email sending triggers</a>
+    <a class="nav-item nav-link" href="/telescope">Telescope</a>
   </div>
 </nav>
