@@ -54,6 +54,9 @@ class EmailController extends Controller
         $stringWithEmails = $request->stringWithEmails;
         $emailArray = Email::extract_emails_from($stringWithEmails);
         foreach ($emailArray as $singleEmail) {
+            
+            //TODO how to validate a simple string in a simple variable? I must check for duplication, before writing the email adress to the db.
+
             $email = new Email();
             $email->email = $singleEmail;
             $email->save();
