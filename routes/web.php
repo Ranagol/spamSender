@@ -31,3 +31,4 @@ Route::post('/emails', 'EmailController@store');
 Route::post('/multiple-emails', 'EmailController@storeMultiple');
 Route::get('/send-email', 'EmailSendingController@sendMail');
 Route::get('/send-multiple-emails', 'EmailSendingController@sendMultipleMails');
+Route::get('/getExcel', 'EmailController@getExcel');

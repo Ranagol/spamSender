@@ -18,17 +18,7 @@ class Email extends Model
         return $matches[0];
     }
 
-    public static function checkForDuplicateEmail(string $string) {
-        $duplicate = Email::where('email', '=', $string);
-        if ($duplicate) {
-            return true;
-        } else {
-            return false;
-        }
-        
-    }
+    
 
-    public static function checkForDuplicatesEmailS(string $string) {
-
-    }
+    
 }

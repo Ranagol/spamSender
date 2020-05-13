@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Email;
 use Illuminate\Http\Request;
+use App\Exports\EmailExport;
+use Maatwebsite\Excel\Facades\Excel;
+
 
 class EmailController extends Controller
 {
@@ -56,6 +59,7 @@ class EmailController extends Controller
         foreach ($emailArray as $singleEmail) {
             
             //TODO how to validate a simple string in a simple variable? I must check for duplication, before writing the email adress to the db.
+            //Sometimes you may wish to stop running validation rules on an attribute after the first validation failure. To do so, assign the bail rule to the attribute:
 
             $email = new Email();
             $email->email = $singleEmail;
@@ -130,4 +134,11 @@ class EmailController extends Controller
     {
         //
     }
+
+    public function getExcel()
+    {
+        return Excel::download(new EmailExport, 'emails.xlsx');
+    }
+
+    
 }
