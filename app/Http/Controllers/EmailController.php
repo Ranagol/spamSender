@@ -6,7 +6,7 @@ use App\Email;
 use Illuminate\Http\Request;
 use App\Exports\EmailExport;
 use Maatwebsite\Excel\Facades\Excel;
-
+use App\Imports\EmailImport;
 
 class EmailController extends Controller
 {
@@ -92,10 +92,12 @@ class EmailController extends Controller
 
         //validate for excel, not bigger than 2Mb
 
-        $request->myFile->storeAs('myFiles', 'emails.xlsx');
+        Excel::import(new EmailImport, $request->myFile);
         $message = 'Your file was succesfully uploaded';
         return view('/emailLaunching.send-email', compact('message'));
     }
+
+    
 
     
 }
