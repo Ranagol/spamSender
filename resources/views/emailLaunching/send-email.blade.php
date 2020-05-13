@@ -9,11 +9,21 @@
     </form>
     <p></p>
 
-    <h4>Get email addresses in excel</h4>
-    <p>Here you can get all your email addresses from the db, in excel sheet</p>
+    <h4>Download email addresses in excel</h4>
+    <p>Here you can get all your email addresses from the db, in excel sheet.</p>
     <form action="/getExcel" method="GET">
         <button type="submit" class="btn btn-success">Get excel</button>
     </form>
+    <p></p>
+
+    <h4>Upload email adresses from excel</h4>
+    <p>Here you can upload your previouly exported email address (backup/reset)</p>
+    <form action="/uploadExcel" method="POST" enctype="multipart/form-data">
+        @csrf
+        <input type="file" name="myFile" >
+        <button type="submit" class="btn btn-info">Upload</button>
+    </form>
+    <p></p>
 
 @if($message ?? '')
     <div class="alert alert-success" role="alert">
