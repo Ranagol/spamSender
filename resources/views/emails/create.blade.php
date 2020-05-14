@@ -17,7 +17,7 @@
         <input type="customer" class="form-control" id="customer" name="customer" placeholder="Customer is optional...">
       </div>
 
-      <button type="submit" class="btn btn-primary">Submit</button>
+      <button type="submit" class="btn btn-primary btn-sm">Submit</button>
 
     </form>
 
@@ -35,7 +35,7 @@
         <textarea class="form-control myTextArea" id="textarea" rows="12" name="stringWithEmails"></textarea>
       </div>
 
-      <button type="submit" class="btn btn-primary">Submit</button>
+      <button type="submit" class="btn btn-primary btn-sm">Submit</button>
 
     </form>
   </div>

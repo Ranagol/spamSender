@@ -24,7 +24,7 @@
           <td><input class="form-control" type="text" name="email" value="{{ $email->email }}"></td>
           <td><input class="form-control" type="text" name="customer" value="{{ $email->customer}}"></td>
 
-          <td><button class="btn btn-warning">Edit</button></td>
+          <td><button class="btn btn-outline-warning btn-sm">Edit</button></td>
         </form>
 
         {{-- ACTIVE STATUS --}}
@@ -37,11 +37,12 @@
             </span>
           </td>
 
-          <td><button class="btn btn-warning">Change to non-active</button></td>
+          <td><button class="btn btn-outline-warning btn-sm">Change to non-active</button></td>
         </form>
 
       </tr>
-      {{-- Here I will have to put in a conditional new row for errors, for every row --}}
+      <!--TODO task for Andor: see below. -->
+      {{-- Here I will have to put in a conditional new row for validation errors, for every row --}}
     @endforeach
   @endif
 

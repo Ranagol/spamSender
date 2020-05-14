@@ -90,6 +90,7 @@ class EmailController extends Controller
 
     public function uploadExcel(Request $request){
 
+        //<!--TODO task for Andor: see below. -->
         //validate for excel, not bigger than 2Mb
 
         Excel::import(new EmailImport, $request->myFile);
