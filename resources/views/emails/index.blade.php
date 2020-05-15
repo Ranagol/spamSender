@@ -12,12 +12,13 @@
     </div>
     {{-- ACTIVE EMAILS --}}
     <div>
-      <p>Number of active emails: </p>
+      <p>Number of active emails: {{ $countActiveEmails ?? '' }} </p>
     </div>
     {{-- SEARCH --}}
     <div>
-      <form action="" method="POST" class="form-inline my-2 my-lg-0">
-        <input class="form-control mr-sm-2" type="search" name="searchEmail" placeholder="Search">
+      <form action="/findEmail" method="POST" class="form-inline my-2 my-lg-0">
+        @csrf
+        <input class="form-control mr-sm-2" type="search" name="findEmail" placeholder="Search">
         <button class="btn btn-outline-success my-2 my-sm-0 btn-sm" type="submit">Search</button>
       </form>
     </div>

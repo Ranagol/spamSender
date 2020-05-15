@@ -10,12 +10,27 @@ use App\Imports\EmailImport;
 
 class EmailController extends Controller
 {
-    
+    //TODO Losi - ezt hogyan csinalni szebben? Hogyan megcsinálni egy funkcióval?
     public function index()
     {
         //$emails = Email::all();
         $emails = Email::orderBy('created_at', 'DESC')->get();
-        return view('emails.index', compact('emails'));
+        $countActiveEmails = Email::where('active', true)->count();
+        return view('emails.index', compact('emails', 'countActiveEmails'));
+    }
+
+    
+    //TODO We have an issue with the urls here... It switches to/findemail and stays there
+    public function findEmail(Request $request){
+        if ($request->findEmail) {
+            $searchTerm = $request->findEmail;
+            $emails = Email::where('email', 'like', '%' . $searchTerm . '%')
+                ->orWhere('customer', 'like', '%' . $searchTerm . '%')
+                ->orderBy('created_at', 'DESC')->get();
+                return view('emails.index', compact('emails'));
+        } else {
+            $this->index();
+        }
     }
 
     
@@ -73,14 +88,20 @@ class EmailController extends Controller
         $email->save();
         $emails = Email::orderBy('created_at', 'DESC')->get();
         return view('emails.index', compact('emails'));
+
+
+        
+        
+        
     }
 
     public function updateActive(Request $request, $id){
         $email = Email::find($id);
         $email->active = false;
         $email->save();
-        $emails = Email::orderBy('created_at', 'DESC')->get();
-        return view('emails.index', compact('emails'));//TODO this is the way how I refresh the page with the updated data. Is this OK?
+        $this->index();
+        //$emails = Email::orderBy('created_at', 'DESC')->get();
+        //return view('emails.index', compact('emails'));//TODO this is the way how I refresh the page with the updated data. Is this OK?
     }
 
     public function getExcel()
