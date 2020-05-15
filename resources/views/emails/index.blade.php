@@ -2,6 +2,30 @@
 @section('title')
 @section('content')
 
+<h2>All emails</h2>
+
+@if(count($emails))
+  <div class="d-flex d-row justify-content-between">
+    {{-- ALL EMAILS --}}
+    <div>
+      <p>Number of all emails: {{ count($emails) }}</p>
+    </div>
+    {{-- ACTIVE EMAILS --}}
+    <div>
+      <p>Number of active emails: </p>
+    </div>
+    {{-- SEARCH --}}
+    <div>
+      <form class="form-inline my-2 my-lg-0">
+        <input class="form-control mr-sm-2" type="search" placeholder="Search">
+        <button class="btn btn-outline-success my-2 my-sm-0 btn-sm" type="submit">Search</button>
+      </form>
+    </div>
+  </div>
+@endif
+
+
+
 @include('layouts.errors')
 
 <table class="table">
@@ -14,10 +38,10 @@
   </tr>
 
   @if(count($emails))
-    <span>Numer of emails: {{ count($emails) }}</span>
+    
     @foreach($emails as $email)
       <tr>
-        {{-- EMAIL AND CUSTOMER  --}}
+        {{-- EMAIL ADDRESS AND CUSTOMER NAME  --}}
         <form action="/emails/{{ $email->id }}" method="POST">
           @csrf
           @method('PUT')
@@ -27,14 +51,14 @@
           <td><button class="btn btn-outline-warning btn-sm">Edit</button></td>
         </form>
 
-        {{-- ACTIVE STATUS --}}
+        {{-- ACTIVE STATUS WITH CHANGE BUTTON --}}
         <form action="/emails/{{ $email->id }}" method="POST">
           @csrf
           @method('PATCH')
           <td>{{ $email->active }}
-            <span>
+            <p>
               <input type="text" hidden name="active" value="0">
-            </span>
+            </p>
           </td>
 
           <td><button class="btn btn-outline-warning btn-sm">Change to non-active</button></td>
