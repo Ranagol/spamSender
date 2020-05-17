@@ -15,8 +15,7 @@ class EmailImport implements ToModel
     public function model(array $row)
     {
         return new Email([
-            'email'    => $row[1],//TODO Why is this not working the documentation way, and why is it working my way?
-            //https://docs.laravel-excel.com/3.1/imports/
+            'email'    => $row[1],//This is one, because in the excel the id's are in the first (0th) row, and we don't want to import ids. 
             'active'   => $row[2],
             'customer' => $row[3],
         ]);

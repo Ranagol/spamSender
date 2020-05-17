@@ -16,7 +16,7 @@
     </div>
     {{-- SEARCH --}}
     <div>
-      <form action="/findEmail" method="POST" class="form-inline my-2 my-lg-0">
+      <form action="/emails/index" method="POST" class="form-inline my-2 my-lg-0">
         @csrf
         <input class="form-control mr-sm-2" type="search" name="findEmail" placeholder="Search">
         <button class="btn btn-outline-success my-2 my-sm-0 btn-sm" type="submit">Search</button>
@@ -47,6 +47,7 @@
           @csrf
           @method('PUT')
           <td><input class="form-control" type="text" name="email" value="{{ $email->email }}"></td>
+          <!--TODO Andor separate the customer from the email forms -->
           <td><input class="form-control" type="text" name="customer" value="{{ $email->customer}}"></td>
 
           <td><button class="btn btn-outline-warning btn-sm">Edit</button></td>

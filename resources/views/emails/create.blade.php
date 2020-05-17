@@ -41,9 +41,9 @@
   </div>
 </div>
 
-@if($message ?? '')
+@if(Session::get('message') ?? '')
   <div class="alert alert-success" role="alert">
-    {{ $message ?? '' }}
+    {{ Session::get('message') ?? '' }}
   </div>
 @endif
 

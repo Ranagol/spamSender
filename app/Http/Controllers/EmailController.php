@@ -4,33 +4,29 @@ namespace App\Http\Controllers;
 
 use App\Email;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 use App\Exports\EmailExport;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Imports\EmailImport;
+use Carbon\Carbon;
 
 class EmailController extends Controller
 {
-    //TODO Losi - ezt hogyan csinalni szebben? Hogyan megcsinálni egy funkcióval?
-    public function index()
+    public function index(Request $request)
     {
-        //$emails = Email::all();
-        $emails = Email::orderBy('created_at', 'DESC')->get();
-        $countActiveEmails = Email::where('active', true)->count();
-        return view('emails.index', compact('emails', 'countActiveEmails'));
-    }
 
-    
-    //TODO We have an issue with the urls here... It switches to/findemail and stays there
-    public function findEmail(Request $request){
         if ($request->findEmail) {
             $searchTerm = $request->findEmail;
             $emails = Email::where('email', 'like', '%' . $searchTerm . '%')
-                ->orWhere('customer', 'like', '%' . $searchTerm . '%')
-                ->orderBy('created_at', 'DESC')->get();
-                return view('emails.index', compact('emails'));
+                ->orWhere('customer', 'like', '%' . $searchTerm . '%');
         } else {
-            $this->index();
+            $emails = new Email();
         }
+
+        //$emails = Email::all();
+        $emails = $emails->orderBy('created_at', 'DESC')->get();
+        $countActiveEmails = Email::where('active', true)->count();
+        return view('emails.index', compact('emails', 'countActiveEmails'));
     }
 
     
@@ -51,57 +47,64 @@ class EmailController extends Controller
         $email->email = $request->email;
         $email->customer = $request->customer;
         $email->save();
+
         $message = 'The ' . $request->email . ' has been saved to database.';
-        return view('emails.create', compact('message'));
+        //https://laravel.com/docs/7.x/session#flash-data
+        $request->session()->flash('message', $message);//flash, because the next request will delete this message, so it will be used once, and it will be deleted after that.
+
+        return redirect()->action('EmailController@create');
     }
 
     public function storeMultiple(Request $request){
         $stringWithEmails = $request->stringWithEmails;
         $emailArray = Email::extract_emails_from($stringWithEmails);
-        foreach ($emailArray as $singleEmail) {
-            
-            //TODO how to validate a simple string in a simple variable? I must check for duplication, before writing the email adress to the db.
-            //Sometimes you may wish to stop running validation rules on an attribute after the first validation failure. To do so, assign the bail rule to the attribute:
-
-            $email = new Email();
-            $email->email = $singleEmail;
-            $email->save();
+        //https://stackoverflow.com/questions/6245971/accurate-way-to-measure-execution-times-of-php-scripts
+        $start = microtime(true);
+        $now = Carbon::now();
+        $emails = [];
+        foreach ($emailArray as $email) {
+            $emails[] = [
+                'email' => $email,
+                'created_at' => $now,
+                'updated_at' => $now,
+            ];
         }
+
+        Email::insert($emails);
+        
+        $time_elapsed_secs = microtime(true) - $start;
+
         $message = count($emailArray) . ' emails have been saved to the database.';
-        return view('emails.create', compact('message'));
+        $request->session()->flash('message', $message);
+
+        return redirect()->action('EmailController@create');
     }
 
    
     public function update(Request $request, $id)
     {
         //TODO this validation randomly makes shit. customer name sometimes can't be number. Customer name sometimes can't be changed, edited. 
-        /*
+        
         $request->validate([
             'email' => 'required|string|max:40|unique:emails',
             'customer' => 'max:40',
         ]);
-        */
         
         $email = Email::find($id);
         $email->email = $request->email;
         $email->customer = $request->customer;
         $email->save();
         $emails = Email::orderBy('created_at', 'DESC')->get();
-        return view('emails.index', compact('emails'));
-
-
-        
-        
-        
+        return view('emails.index', compact('emails'));  
     }
 
     public function updateActive(Request $request, $id){
         $email = Email::find($id);
         $email->active = false;
         $email->save();
-        $this->index();
-        //$emails = Email::orderBy('created_at', 'DESC')->get();
-        //return view('emails.index', compact('emails'));//TODO this is the way how I refresh the page with the updated data. Is this OK?
+
+
+        return redirect()->action('EmailController@index');//TODO this is the way how I refresh the page with the updated data. Is this OK?
     }
 
     public function getExcel()
