@@ -18,12 +18,7 @@
       </div>
 
       <button type="submit" class="btn btn-primary btn-sm">Submit</button>
-
     </form>
-
-    
-
-
   </div>
 
   <div>
@@ -40,6 +35,7 @@
     </form>
   </div>
 </div>
+
 
 @if(Session::get('message') ?? '')
   <div class="alert alert-success" role="alert">

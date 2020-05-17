@@ -25,8 +25,8 @@ Route::get('/emailsending', function () {
 
 Route::put('/emails/{id}', 'EmailController@update');
 Route::patch('/emails/{id}', 'EmailController@updateActive');
-Route::get('/emails/index', 'EmailController@index');
-Route::post('/emails/index', 'EmailController@index');
+Route::get('/emails/index', 'EmailController@index');//two different requests are activating the same method
+Route::post('/emails/index', 'EmailController@index');//two different requests are activating the same method
 Route::get('/add-email', 'EmailController@create');
 Route::post('/emails', 'EmailController@store');
 Route::post('/multiple-emails', 'EmailController@storeMultiple');

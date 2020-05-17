@@ -14,17 +14,18 @@ class EmailController extends Controller
 {
     public function index(Request $request)
     {
-
+        //1 part
         if ($request->findEmail) {
             $searchTerm = $request->findEmail;
             $emails = Email::where('email', 'like', '%' . $searchTerm . '%')
-                ->orWhere('customer', 'like', '%' . $searchTerm . '%');
+                ->orWhere('customer', 'like', '%' . $searchTerm . '%');//there is no ->get() here at the end of this line, so this is not executed, just created. Execution will happen later...
         } else {
             $emails = new Email();
         }
+        //if ore else: both of them are returning an $emails, that contains the Email model. Whichever happens, the 2 part can work with it.
 
-        //$emails = Email::all();
-        $emails = $emails->orderBy('created_at', 'DESC')->get();
+        //2 part
+        $emails = $emails->orderBy('created_at', 'DESC')->get();//... and here we have the ->get execution
         $countActiveEmails = Email::where('active', true)->count();
         return view('emails.index', compact('emails', 'countActiveEmails'));
     }
@@ -50,17 +51,14 @@ class EmailController extends Controller
 
         $message = 'The ' . $request->email . ' has been saved to database.';
         //https://laravel.com/docs/7.x/session#flash-data
-        $request->session()->flash('message', $message);//flash, because the next request will delete this message, so it will be used once, and it will be deleted after that.
-
-        return redirect()->action('EmailController@create');
+        $request->session()->flash('message', $message);//flash, because the next request will delete this message, so it will be used once, and it will be deleted after that. 'message' = our blade is expecting a $message. $message = is the text that we want to display.
+        return redirect()->action('EmailController@create');//our blade will be called with create method, and will display this flash session message once, after the message will disappear
     }
 
     public function storeMultiple(Request $request){
         $stringWithEmails = $request->stringWithEmails;
-        $emailArray = Email::extract_emails_from($stringWithEmails);
-        //https://stackoverflow.com/questions/6245971/accurate-way-to-measure-execution-times-of-php-scripts
-        $start = microtime(true);
-        $now = Carbon::now();
+        $emailArray = Email::extract_emails_from($stringWithEmails);//extract all emails from the gibberish text
+        $now = Carbon::now();//with this method, the created_at and updated_at fields won't be filled, so we have to do this manually. $now will be used for this. Email::insert can ony work with arrays in arrays. So we will work with a $emails[][].
         $emails = [];
         foreach ($emailArray as $email) {
             $emails[] = [
@@ -69,21 +67,17 @@ class EmailController extends Controller
                 'updated_at' => $now,
             ];
         }
-
         Email::insert($emails);
         
-        $time_elapsed_secs = microtime(true) - $start;
-
         $message = count($emailArray) . ' emails have been saved to the database.';
         $request->session()->flash('message', $message);
-
         return redirect()->action('EmailController@create');
     }
 
    
     public function update(Request $request, $id)
     {
-        //TODO this validation randomly makes shit. customer name sometimes can't be number. Customer name sometimes can't be changed, edited. 
+        //TODO the email and the customer must be in separated form fields! They can't be edited and updated together, because the email has unique validation controll, and it will create a problem when the customer is changed and the email is not. 
         
         $request->validate([
             'email' => 'required|string|max:40|unique:emails',
@@ -102,9 +96,7 @@ class EmailController extends Controller
         $email = Email::find($id);
         $email->active = false;
         $email->save();
-
-
-        return redirect()->action('EmailController@index');//TODO this is the way how I refresh the page with the updated data. Is this OK?
+        return redirect()->action('EmailController@index');//here we use redirect to activate the index method after a succesfull update, to get all new (updated, edited) emails
     }
 
     public function getExcel()

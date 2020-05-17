@@ -68,7 +68,7 @@
 
       </tr>
       <!--TODO task for Andor: see below. -->
-      {{-- Here I will have to put in a conditional new row for validation errors, for every row --}}
+      {{-- Here I will have to put in a conditional new row for validation errors, for every row. In case if during editing there will be a mail duplication... --}}
     @endforeach
   @endif
 
