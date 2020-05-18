@@ -8,7 +8,7 @@
   <div class="d-flex d-row justify-content-between">
     {{-- ALL EMAILS --}}
     <div>
-      <p>Number of all emails: {{ count($emails) }}</p>
+      <p>Number of all emails: {{ $countEmails ?? '' }}</p>
     </div>
     {{-- ACTIVE EMAILS --}}
     <div>
@@ -45,7 +45,7 @@
         {{-- EMAIL ADDRESS AND CUSTOMER NAME  --}}
         <form action="/emails/{{ $email->id }}" method="POST">
           @csrf
-          @method('PUT')
+          @method('PATCH')
           <td><input class="form-control" type="text" name="email" value="{{ $email->email }}"></td>
           <!--TODO Andor separate the customer from the email forms -->
           <td><input class="form-control" type="text" name="customer" value="{{ $email->customer}}"></td>
@@ -54,7 +54,7 @@
         </form>
 
         {{-- ACTIVE STATUS WITH CHANGE BUTTON --}}
-        <form action="/emails/{{ $email->id }}" method="POST">
+        <form action="/emails/updateActive/{{ $email->id }}" method="POST">
           @csrf
           @method('PATCH')
           <td>{{ $email->active }}

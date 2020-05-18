@@ -26,8 +26,9 @@ class EmailController extends Controller
 
         //2 part
         $emails = $emails->orderBy('created_at', 'DESC')->get();//... and here we have the ->get execution
+        $countEmails = Email::count();
         $countActiveEmails = Email::where('active', true)->count();
-        return view('emails.index', compact('emails', 'countActiveEmails'));
+        return view('emails.index', compact('emails', 'countActiveEmails', 'countEmails'));
     }
 
     
@@ -78,7 +79,7 @@ class EmailController extends Controller
     public function update(Request $request, $id)
     {
         //TODO the email and the customer must be in separated form fields! They can't be edited and updated together, because the email has unique validation controll, and it will create a problem when the customer is changed and the email is not. 
-        
+        // dd('update');
         $request->validate([
             'email' => 'required|string|max:40|unique:emails',
             'customer' => 'max:40',
@@ -93,6 +94,7 @@ class EmailController extends Controller
     }
 
     public function updateActive(Request $request, $id){
+        // dd('updateActive');
         $email = Email::find($id);
         $email->active = false;
         $email->save();

@@ -22,9 +22,12 @@ Route::get('/emailsending', function () {
     return view('/emailLaunching.send-email');
 });
 
+// Route::patch('/emails/{id}', function () {
+//     return 'route is working';
+// });
 
-Route::put('/emails/{id}', 'EmailController@update');
-Route::patch('/emails/{id}', 'EmailController@updateActive');
+Route::patch('/emails/{id}', 'EmailController@update');
+Route::patch('/emails/updateActive/{id}', 'EmailController@updateActive');
 Route::get('/emails/index', 'EmailController@index');//two different requests are activating the same method
 Route::post('/emails/index', 'EmailController@index');//two different requests are activating the same method
 Route::get('/add-email', 'EmailController@create');
