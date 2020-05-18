@@ -28,6 +28,6 @@ class MailForCustomers extends Mailable
      */
     public function build()
     {
-        return $this->from('alatibecej@gmail.com')->view('emailLaunching.mailForCustomers');
+        return $this->from('alatibecej@gmail.com')->view('emailTemplates.mailForCustomers');
     }
 }

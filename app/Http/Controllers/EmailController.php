@@ -85,8 +85,7 @@ class EmailController extends Controller
         $email = Email::find($id);
         $email->email = $request->email;
         $email->save();
-        $emails = Email::orderBy('created_at', 'DESC')->get();
-        return view('emails.index', compact('emails'));  
+        return redirect()->action('EmailController@index');  
     }
 
     public function updateCustomer(Request $request, $id)
@@ -98,16 +97,10 @@ class EmailController extends Controller
         $email = Email::find($id);
         $email->customer = $request->customer;
         $email->save();
-        $emails = Email::orderBy('created_at', 'DESC')->get();
-        return view('emails.index', compact('emails'));  
+        return redirect()->action('EmailController@index');  
     }
 
-
-
-
-
     public function updateActive(Request $request, $id){
-        // dd('updateActive');
         $email = Email::find($id);
         $email->active = false;
         $email->save();
@@ -126,7 +119,7 @@ class EmailController extends Controller
         //https://hdtuto.com/article/laravel-57-image-upload-with-validation-example
             'myFile' => 'required|file|mimes:xls,xlsx|max:2000',
         ]);
-        //validate for excel, not bigger than 2000kb
+        //validate for xls or xlsx, not bigger than 2000kb
 
         Excel::import(new EmailImport, $request->myFile);
         $message = 'Your file was succesfully uploaded';

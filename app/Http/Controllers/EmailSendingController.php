@@ -10,19 +10,12 @@ use App\Email;
 
 class EmailSendingController extends Controller
 {
-    public function sendMail(){
-        $name = 'ReceiverClient';
-        Mail::to('receiverClient@gmail.com')->send(new SendMailable($name));
-        $message = 'Email was succesfully sent.';
-        return view('/emailLaunching.send-email', compact('message'));
-    }
-
     public function sendMultipleMails(){
         $customers = Email::where('active', true)->get();
         foreach ($customers as $customer) {
             Mail::to($customer->email)->send(new MailForCustomers());
         }
         $message = 'All emails were succesfully sent.';
-        return view('/emailLaunching.send-email', compact('message'));
+        return view('/emailLaunching.send-email', compact('message'));//TODO change this feedback message to session system message
     }
 }

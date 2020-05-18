@@ -8,11 +8,11 @@
   <div class="d-flex d-row justify-content-between">
     {{-- ALL EMAILS --}}
     <div>
-      <p>Number of all emails: {{ $countEmails ?? '' }}</p>
+      <p>Number of all contacts: {{ $countEmails ?? '' }}</p>
     </div>
     {{-- ACTIVE EMAILS --}}
     <div>
-      <p>Number of active emails: {{ $countActiveEmails ?? '' }} </p>
+      <p>Number of active contacts: {{ $countActiveEmails ?? '' }} </p>
     </div>
     
     <div>

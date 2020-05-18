@@ -2,24 +2,29 @@
 
 use Illuminate\Support\Facades\Route;
 
+
+
+
+//TODO LOSIIII
 /*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
+when navigating from
+http://127.0.0.1:8000/emails/index
+
+to
+http://127.0.0.1:8000/emailsending
+
+I arrive
+
+http://127.0.0.1:8000/emails/emailsending <------------ISSUE
+
+Which is not good.
+
+But, when navigating from any other url to http://127.0.0.1:8000/emailsending, then I will arrive where I want to.
 */
+
 
 Route::get('/', function () {
     return view('welcome');
-});
-
-
-Route::get('/emailsending', function () {
-    return view('/emailLaunching.send-email');
 });
 
 
@@ -38,9 +43,14 @@ Route::post('/emails', 'EmailController@store');
 Route::post('/multiple-emails', 'EmailController@storeMultiple');
 
 //EMAIL SENDING
-Route::get('/send-email', 'EmailSendingController@sendMail');
+Route::get('/emailsending', function () {
+    return view('/emails.send-email');
+});
 Route::get('/send-multiple-emails', 'EmailSendingController@sendMultipleMails');
 
 //EXCEL MANIPULATION
+Route::get('/backup', function () {
+    return view('/emails.backup');
+});
 Route::get('/getExcel', 'EmailController@getExcel');
 Route::post('/uploadExcel', 'EmailController@uploadExcel');
