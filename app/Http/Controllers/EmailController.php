@@ -121,8 +121,12 @@ class EmailController extends Controller
 
     public function uploadExcel(Request $request){
 
-        //<!--TODO task for Andor: see below. -->
-        //validate for excel, not bigger than 2Mb
+        $request->validate([
+        //https://stackoverflow.com/questions/23625672/laravel-file-upload-validation
+        //https://hdtuto.com/article/laravel-57-image-upload-with-validation-example
+            'myFile' => 'required|file|mimes:xls,xlsx|max:2000',
+        ]);
+        //validate for excel, not bigger than 2000kb
 
         Excel::import(new EmailImport, $request->myFile);
         $message = 'Your file was succesfully uploaded';
