@@ -22,18 +22,25 @@ Route::get('/emailsending', function () {
     return view('/emailLaunching.send-email');
 });
 
-// Route::patch('/emails/{id}', function () {
-//     return 'route is working';
-// });
 
-Route::patch('/emails/{id}', 'EmailController@update');
+//UPDATE METHODS
+Route::patch('/emails/updateEmail/{id}', 'EmailController@updateEmail');
+Route::patch('/emails/updateCustomer/{id}', 'EmailController@updateCustomer');
 Route::patch('/emails/updateActive/{id}', 'EmailController@updateActive');
+
+//SEARCH AND INDEX
 Route::get('/emails/index', 'EmailController@index');//two different requests are activating the same method
 Route::post('/emails/index', 'EmailController@index');//two different requests are activating the same method
+
+//ADDING NEW EMAILS
 Route::get('/add-email', 'EmailController@create');
 Route::post('/emails', 'EmailController@store');
 Route::post('/multiple-emails', 'EmailController@storeMultiple');
+
+//EMAIL SENDING
 Route::get('/send-email', 'EmailSendingController@sendMail');
 Route::get('/send-multiple-emails', 'EmailSendingController@sendMultipleMails');
+
+//EXCEL MANIPULATION
 Route::get('/getExcel', 'EmailController@getExcel');
 Route::post('/uploadExcel', 'EmailController@uploadExcel');

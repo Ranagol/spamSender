@@ -76,22 +76,35 @@ class EmailController extends Controller
     }
 
    
-    public function update(Request $request, $id)
+    public function updateEmail(Request $request, $id)
     {
-        //TODO the email and the customer must be in separated form fields! They can't be edited and updated together, because the email has unique validation controll, and it will create a problem when the customer is changed and the email is not. 
-        // dd('update');
         $request->validate([
             'email' => 'required|string|max:40|unique:emails',
-            'customer' => 'max:40',
         ]);
         
         $email = Email::find($id);
         $email->email = $request->email;
+        $email->save();
+        $emails = Email::orderBy('created_at', 'DESC')->get();
+        return view('emails.index', compact('emails'));  
+    }
+
+    public function updateCustomer(Request $request, $id)
+    {
+        $request->validate([
+            'customer' => 'max:40',
+        ]);
+        
+        $email = Email::find($id);
         $email->customer = $request->customer;
         $email->save();
         $emails = Email::orderBy('created_at', 'DESC')->get();
         return view('emails.index', compact('emails'));  
     }
+
+
+
+
 
     public function updateActive(Request $request, $id){
         // dd('updateActive');
