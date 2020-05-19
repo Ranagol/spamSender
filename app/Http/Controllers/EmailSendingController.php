@@ -16,6 +16,6 @@ class EmailSendingController extends Controller
             Mail::to($customer->email)->send(new MailForCustomers());
         }
         $message = 'All emails were succesfully sent.';
-        return view('/emails.send-email', compact('message'));//TODO change this feedback message to session system message
+        return view('/emails.send-email', compact('message'));
     }
 }

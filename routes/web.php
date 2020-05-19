@@ -2,27 +2,6 @@
 
 use Illuminate\Support\Facades\Route;
 
-
-
-
-//TODO LOSIIII
-/*
-when navigating from
-http://127.0.0.1:8000/emails/index
-
-to
-http://127.0.0.1:8000/emailsending
-
-I arrive
-
-http://127.0.0.1:8000/emails/emailsending <------------ISSUE
-
-Which is not good.
-
-But, when navigating from any other url to http://127.0.0.1:8000/emailsending, then I will arrive where I want to.
-*/
-
-
 Route::get('/', function () {
     return view('welcome');
 });
