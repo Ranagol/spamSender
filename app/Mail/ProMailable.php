@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class MailForCustomers extends Mailable
+class ProMailable extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -28,6 +28,6 @@ class MailForCustomers extends Mailable
      */
     public function build()
     {
-        return $this->from('alatibecej@gmail.com')->view('maileclipse::templates.simpleTextEmailForCustomers');
+        return $this->view('maileclipse::templates.test1');
     }
 }

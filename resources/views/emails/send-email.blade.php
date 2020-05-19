@@ -3,9 +3,9 @@
 @section('content')
     <h4>Email sending</h4>
     
-    <p>Send an email to all contacts in the db:</p>
+    <p>Send an email to all contacts - think twice, check twice before that :) </p>
     <form action="/send-multiple-emails" method="GET">
-        <button type="submit" class="btn btn-outline-success btn-sm">Send mail</button>
+        <button type="submit" class="btn btn-outline-danger btn-sm">Send mail</button>
     </form>
     <p></p>
 
